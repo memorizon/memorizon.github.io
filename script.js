@@ -1071,9 +1071,9 @@
       bankStrip: sb ? { clip: `${c}_other.mp4`, dir: sb.dir, chunks: sb.chunks, chunk_latents: sb.chunk_latents, donor: "ancient ruins on grassy hills" } : null,
     }]);
   }).catch(() => {});
-  // first two unseen-scene examples, then the web-photo examples (35-step rollouts)
+  // web-photo examples first, then the first two unseen-scene examples
   Promise.all([getJSON("assets/videos/abl_unseen2/manifest.json"), getJSON("assets/videos/abl_web/manifest.json").catch(() => null)])
-    .then(([u, w]) => build("ablu", w ? ablationRows(u, "abl_unseen2", "abl2_").slice(0, 2).concat(ablationRows(w, "abl_web", "ablw_"))
+    .then(([u, w]) => build("ablu", w ? ablationRows(w, "abl_web", "ablw_").concat(ablationRows(u, "abl_unseen2", "abl2_").slice(0, 2))
                                         : ablationRows(u, "abl_unseen2", "abl2_")))
     .catch(() => {});
 })();
